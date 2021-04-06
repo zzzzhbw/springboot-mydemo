@@ -1,0 +1,61 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <footer th:fragment="common_side">
+                <div class="span2" id="sidebar">
+                    <ul class="nav nav-list bs-docs-sidenav nav-collapse collapse">
+                        <li  th:class="${url==index?'active':''}">
+                            <a href="index"><i class="icon-chevron-right"></i> 首页</a>
+                        </li>
+                        <li th:class="${url==calendar?'active':''}">
+                            <a href="calendar"><i class="icon-chevron-right"></i> 日历</a>
+                        </li>
+                        <li th:class="${url==stats?'active':''}">
+                            <a href="stats"><i class="icon-chevron-right"></i> 统计图表</a>
+                        </li>
+                        <li th:class="${url==form?'active':''}">
+                            <a href="form"><i class="icon-chevron-right"></i> 表单</a>
+                        </li>
+                        <li th:class="${url==tables?'active':''}">
+                            <a href="tables"><i class="icon-chevron-right"></i> 表格</a>
+                        </li>
+                        <li th:class="${url==buttons?'active':''}">
+                            <a href="buttons"><i class="icon-chevron-right"></i> 按钮 & 图标</a>
+                        </li>
+                        <li th:class="${url==editors?'active':''}">
+                            <a href="editors"><i class="icon-chevron-right"></i> 编辑器</a>
+                        </li>
+                        <li th:class="${url==interface?'active':''}">
+                            <a href="interface"><i class="icon-chevron-right"></i> UI界面</a>
+                        </li>
+                        <li>
+                            <a href="#"><span class="badge badge-success pull-right">731</span> 订单</a>
+                        </li>
+                        <li>
+                            <a href="#"><span class="badge badge-success pull-right">812</span> 清单</a>
+                        </li>
+                        <li>
+                            <a href="#"><span class="badge badge-info pull-right">27</span> 客户</a>
+                        </li>
+                        <li>
+                            <a href="#"><span class="badge badge-info pull-right">1,234</span> 用户</a>
+                        </li>
+                        <li>
+                            <a href="#"><span class="badge badge-info pull-right">2,221</span> 消息</a>
+                        </li>
+                        <li>
+                            <a href="#"><span class="badge badge-info pull-right">11</span> 报告</a>
+                        </li>
+                        <li>
+                            <a href="#"><span class="badge badge-important pull-right">83</span> 错误</a>
+                        </li>
+                        <li>
+                            <a href="#"><span class="badge badge-warning pull-right">4,231</span> 日志</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!--/span-->
+    </footer>
+</head>
+</html>

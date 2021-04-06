@@ -1,0 +1,47 @@
+server:
+  port: 8081
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.zhoubw.pojo
+  mvc:
+    view:
+      suffix: .html
+      prefix: templates/
+    static-path-pattern: /static/**
+  thymeleaf:
+    prefix: classpath:/templates/
+logging.:
+    #config: log4j.properties
+    file:
+        name: "myapplication.log"
+        path: classpath:/
+spring:
+        redis:
+          host: 127.0.0.1
+        banner:
+          location: classpath:/static/banner.txt
+        jpa:
+          database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+          show-sql: true
+        datasource:
+          druid:
+            filters: stat
+            web-stat-filter:
+              enabled: true
+            stat-view-servlet:
+              enabled: true
+              url-pattern: /druid/*
+              login-username: zhoubw
+              login-password: 123456
+              allow:
+            filter:
+              stat:
+                db-type: h2
+                enabled: true
+                log-slow-sql: true
+                slow-sql-millis: 2000
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          url: jdbc:mysql://localhost:3306/zhoubw?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&serverTimezone=UTC
+          username: root
+          password: 123456
+          type: com.alibaba.druid.pool.DruidDataSource

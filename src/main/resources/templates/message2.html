@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello queue</title>
+    <script th:src="@{sockjs.js}"></script>
+    <script th:src="@{stomp.js}"></script>
+    <script th:src="@{jquery.min.js}"></script>
+    <script type="text/javascript">
+        var stompClient = null;
+        function setConnected(connected){
+            document.getElementById("connect").disabled = connected;
+            document.getElementById("disconnect").disabled = !connected;
+            $("#response").html();
+        }
+        function connect() {
+            var socket = new SockJS("http://localhost:8081/point");
+            stompClient = Stomp.over(socket);
+            stompClient.connect({}, function(frame) {
+                setConnected(true);
+                console.log('Connected: ' + frame);
+                stompClient.subscribe('/user/'+document.getElementById('username').innerHTML+'/message', function(response){
+                     showResponse(response.body);
+
+                    // var response1 = document.getElementById('response');
+                    // var p = document.createElement('p');
+                    // p.style.wordWrap = 'break-word';
+                    // p.appendChild(document.createTextNode(response.body));
+                    // response1.appendChild(p);
+                });
+                // stompClient.subscribe('/userqueue', function(respnose){
+                //     showResponse1(JSON.parse(respnose.body).responseMessage);
+                // });
+            });
+        }
+
+        function disconnect() {
+            if (stompClient != null) {
+                stompClient.disconnect();
+            }
+            setConnected(false);
+            console.log("Disconnected");
+        }
+
+        function sendName() {
+            var name = document.getElementById('name').value;
+            var toname = document.getElementById('user').value;
+            console.info(1111111111);
+            stompClient.send("/app/queue", {}, JSON.stringify({ 'name': name,'toname': toname}));
+        }
+        function showResponse(message) {
+            $("#response").html(message);
+        }
+        function showResponse1(message) {
+            $("#response1").html(message);
+        }
+    </script>
+</head>
+<body onload="disconnect()">
+<noscript><h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websocket relies on Javascript being enabled. Please enable
+    Javascript and reload this page!</h2></noscript>
+<div>
+    <div>
+        <p id="username" th:text="${#authentication.name}" hidden="true"></p>
+        <labal>用户</labal><input type="text" id="user" />
+        <button id="connect" onclick="connect();">Connect</button>
+        <button id="disconnect" disabled="disabled" onclick="disconnect();">Disconnect</button>
+    </div>
+    <div id="conversationDiv">
+        <labal>名字</labal><input type="text" id="name" />
+        <button id="sendName" onclick="sendName();">Send</button>
+        <p id="response"></p>
+        <p id="response1"></p>
+    </div>
+</div>
+
+</body>
+</html>
